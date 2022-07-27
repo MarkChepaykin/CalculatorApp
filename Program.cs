@@ -1,35 +1,7 @@
-﻿namespace Calculator
+﻿using CalculatorLibrary;
+
+namespace CalculatorProgram
 {
-    class Calculator
-    {
-        public static double DoOperation(double num1, double num2, string op)
-        {
-            double result = double.NaN;
-
-            switch (op)
-            {
-                case "a":
-                    result = num1 + num2;
-                    break;
-                case "s":
-                    result = num1 - num2; break;
-                case "m":
-                    result = num1 * num2; break;
-                case "d":
-                    if (num2 != 0)
-                    {
-                        result = num1 + num2;
-                    }
-                    break;
-                default:
-                    break;
-
-            }
-            return result;
-        }
-    }
-
-
     class Program
     {
         static void Main(string[] args)
@@ -38,10 +10,12 @@
             Console.WriteLine("Console Calculator in C#\r");
             Console.WriteLine("------------------------\n");
 
+            Calculator calculator = new Calculator();
+
             while (!endApp)
             {
-                string numInput1 = " ";
-                string numInput2 = " ";
+                string numInput1 = "";
+                string numInput2 = "";
                 double result = 0;
 
                 Console.WriteLine("Type a number, and then press Enter: ");
@@ -75,7 +49,7 @@
 
                 try
                 {
-                    result = Calculator.DoOperation(cleanNum1, cleanNum2, op);
+                    result = calculator.DoOperation(cleanNum1, cleanNum2, op);
                     if (double.IsNaN(result))
                     {
                         Console.WriteLine("This operation will result in a mathematical error.\n");
@@ -86,15 +60,15 @@
                 { Console.WriteLine("Oh no! An exception occurred trying to do the math.\n - Details: " + ex.Message); }
                 Console.WriteLine("----------------------------\n");
 
-                Console.Write("Press 'n' and Enter to clode the app or press any other key and Enter to continue:");
+                Console.Write("Press 'n' and Enter to close the app or press any other key and Enter to continue:");
                 if (Console.ReadLine() == "n") endApp = true;
 
                 Console.WriteLine("\n");
             }
 
+            calculator.Finish();
             return;
 
         }
-
     }
 }
